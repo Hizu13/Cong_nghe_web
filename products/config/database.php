@@ -6,7 +6,7 @@ class Database
 
     private function __construct()
     {
-        $config = require 'config.php';
+        $config = require 'config/config.php';
         $dsn = $config['database']['dsn'];
         $username = $config['database']['username'];
         $password = $config['database']['password'];
