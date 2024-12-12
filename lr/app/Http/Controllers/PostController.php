@@ -8,7 +8,7 @@ class PostController extends Controller
 {
     public function index()
 {
-    $posts = Post::all();
-    return view("home", compact("posts"));
+    $posts = Post::all();//lấy tất cả sử dingj
+    return view("home", compact("posts"));//trả về view home
     }
 }
