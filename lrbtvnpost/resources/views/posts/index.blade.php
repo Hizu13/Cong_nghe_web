@@ -1,60 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initialscale=1.0">
- <meta http-equiv="X-UA-Compatible" content="ie=edge">
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-
-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-integrity="sha384-
-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-crossorigin="anonymous">
- <title>Posts</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Posts</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            color: #566787;
+            background: #f5f5f5;
+            font-family: 'Varela Round', sans-serif;
+            font-size: 13px;
+        }
+
+        .table-responsive {
+            margin: 30px 0;
+        }
+
+        .table-wrapper {
+            background: #fff;
+            padding: 20px 25px;
+            border-radius: 3px;
+            min-width: 1000px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+        }
+
+        .table-title {
+            padding-bottom: 15px;
+            background: #435d7d;
+            color: #fff;
+            padding: 16px 30px;
+            min-width: 100%;
+            margin: -20px -25px 10px;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .table-title h2 {
+            margin: 5px 0 0;
+            font-size: 24px;
+        }
+
+        .table-title .btn-group {
+            float: right;
+        }
+
+        .table-title .btn {
+            color: #fff;
+            float: right;
+            font-size: 13px;
+            border: none;
+            min-width: 50px;
+            border-radius: 2px;
+            border: none;
+            outline: none !important;
+            margin-left: 10px;
+        }
+
+        .table-title .btn i {
+            float: left;
+            font-size: 21px;
+            margin-right: 5px;
+        }
+
+        .table-title .btn span {
+            float: left;
+            margin-top: 2px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+        }
+
+        .card-header {
+            background-color: #435d7d;
+            color: white;
+        }
+
+        .card-footer {
+            background-color: #f5f5f5;
+        }
+
+        .btn {
+            border-radius: 2px;
+            min-width: 100px;
+        }
+
+        .btn-primary {
+            background-color: #2196F3;
+            border-color: #2196F3;
+        }
+
+        .btn-primary:hover {
+            background-color: #1976D2;
+            border-color: #1976D2;
+        }
+
+        .btn-danger {
+            background-color: #F44336;
+            border-color: #F44336;
+        }
+
+        .btn-danger:hover {
+            background-color: #D32F2F;
+            border-color: #D32F2F;
+        }
+    </style>
 </head>
+
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-warning">
- <div class="container-fluid">
- <a class="navbar-brand h1" href={{ route('posts.index')
-}}>CRUDPosts</a>
- <div class="justify-end ">
- <div class="col ">
- <a class="btn btn-sm btn-success" href={{
-route('posts.create') }}>Add Post</a>
- </div>
- </div>
- </div>
- </nav>
- <div class="container mt-5">
- <div class="row">
- @foreach ($posts as $post)
- <div class="col-sm">
- <div class="card">
- <div class="card-header">
- <h5 class="card-title">{{ $post->title }}</h5>
- </div>
- <div class="card-body">
- <p class="card-text">{{ $post->content }}</p>
- </div>
- <div class="card-footer">
- <div class="row">
- <div class="col-sm">
- <a href="{{ route('posts.edit', $post->id) }}"
- class="btn btn-primary btn-sm">Edit</a>
- </div>
- <div class="col-sm">
- <form action="{{ route('posts.destroy', $post->id)
-}}" method="post">
- @csrf
- @method('DELETE')
- <button type="submit" class="btn btn-danger btnsm">Delete</button>
- </form>
- </div>
- </div>
- </div>
-</div>
- </div>
- @endforeach
- </div>
- </div>
+    <div class="container-xl">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h2>Manage <b>Posts</b></h2>
+                        </div>
+                        <div class="col-sm-6">
+                            <a href="{{ route('posts.create') }}" class="btn btn-success"><i class="material-icons">&#xE147;</i> <span>Add New Post</span></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    @foreach ($posts as $post)
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">{{ $post->title }}</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">{{ $post->content }}</p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                                    </div>
+                                    <div class="col-sm">
+                                        <form action="{{ route('posts.destroy', $post->id) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
